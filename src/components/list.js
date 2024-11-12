@@ -5,15 +5,12 @@ function ToDoList(props){
     console.log(todos);
 
     return(
-        <div>
             <ul className="list-group">
                 {todos.map((text) => (
-                <ToDoItem {...text} />
+                <ToDoItem  key={text.id} {...text} />
                 ))}
             </ul>
-        </div>
     );
 }
-
 
 export default ToDoList;
