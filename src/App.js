@@ -3,9 +3,18 @@ import { nanoid } from "nanoid";
 
 import ToDoList from "./components/list";
 import AddToDoForm from "./components/addnew";
+import IncompletedBtn from "./components/incompleted";
 
 function App() {
-  const [todos, setTodos] = useState([]);
+  // const stringTodos = localStorage.getItem("todos");
+  // // convert the string version of Todos into array
+  // let todos = JSON.parse(stringTodos);
+
+  // // if Todos is not found, set it as empty array
+  // if (!todos) {
+  //   todos = [];
+  // }
+
   /*=======================================================*/
   // Handle marking a todo as complete
   // const handleComplete = (id) => {
@@ -23,6 +32,12 @@ function App() {
   //   setTodos(updatedTodos);
   // };
   /*=======================================================*/
+  const stringTodos = localStorage.getItem("todos");
+  const [todos, setTodos] = useState(JSON.parse(stringTodos));
+
+  // if (!todos) {
+  //   todos = [];
+  // }
 
   return (
     <div className="container">
@@ -43,22 +58,26 @@ function App() {
               onItemDelete={(id) => {
                 const newList = todos.filter((s) => s.id !== id);
                 setTodos(newList);
+                let convertedPosts = JSON.stringify(newList);
+                localStorage.setItem("todos", convertedPosts);
               }}
-              
               // change to true
               onComplete={(id) => {
-                const updatedTodos = todos.map((s) =>
+                const newList = todos.map((s) =>
                   s.id === id ? { ...s, isCompleted: true } : s
                 );
-                setTodos(updatedTodos);
+                setTodos(newList);
+                let convertedPosts = JSON.stringify(newList);
+                localStorage.setItem("todos", convertedPosts);
               }}
-
               // change to false
               onIncomplete={(id) => {
-                const updatedTodos = todos.map((s) =>
+                const newList = todos.map((s) =>
                   s.id === id ? { ...s, isCompleted: false } : s
                 );
-                setTodos(updatedTodos);
+                setTodos(newList);
+                let convertedPosts = JSON.stringify(newList);
+                localStorage.setItem("todos", convertedPosts);
               }}
               /*=======================================================*/
               // onComplete={handleComplete}
@@ -71,9 +90,11 @@ function App() {
                 newList.push({
                   id: nanoid(),
                   text: itemName,
+                  isCompleted: false,
                 });
-                console.log("todos", todos);
                 setTodos(newList);
+                let convertedPosts = JSON.stringify(newList);
+                localStorage.setItem("todos", convertedPosts);
               }}
             />
           </div>
