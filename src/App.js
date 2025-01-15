@@ -33,7 +33,9 @@ function App() {
   // };
   /*=======================================================*/
   const stringTodos = localStorage.getItem("todos");
-  const [todos, setTodos] = useState(JSON.parse(stringTodos));
+  const [todos, setTodos] = useState(
+    JSON.parse(stringTodos) ? JSON.parse(stringTodos) : null
+  );
 
   // if (!todos) {
   //   todos = [];
