@@ -36,23 +36,25 @@ function ToDoList(props) {
           }}
         />
       ))} */}
-      {todos.map((text) => (
-        <ToDoItem
-          key={text.id}
-          {...text} // always return the item in .map
-          onItemDelete={(id) => onItemDelete(id)}
-          onComplete={(id) => {
-            if (!isCompleted) {
-              onComplete(id); // Only allow onComplete when not completed
-            }
-          }}
-          onIncomplete={(id) => {
-            if (!isCompleted) {
-              onIncomplete(id); // Only allow onIncomplete when completed
-            }
-          }}
-        />
-      ))}
+      {todos && todos.length > 0
+        ? todos.map((text) => (
+            <ToDoItem
+              key={text.id}
+              {...text} // always return the item in .map
+              onItemDelete={(id) => onItemDelete(id)}
+              onComplete={(id) => {
+                if (!isCompleted) {
+                  onComplete(id); // Only allow onComplete when not completed
+                }
+              }}
+              onIncomplete={(id) => {
+                if (!isCompleted) {
+                  onIncomplete(id); // Only allow onIncomplete when completed
+                }
+              }}
+            />
+          ))
+        : null}
     </ul>
   );
 }
